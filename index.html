@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nick Junge – Gartenservice & Klimagärten | Heidelberg</title>
+  <meta name="description" content="Ökologische Gartengestaltung, Klimagärten und Gartenpflege in Heidelberg und Umgebung. Benjeshecken, Wildblumenflächen, nachhaltige Gartenkonzepte.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --olive:    #5f6645;
+      --sage:     #7a8450;
+      --beige:    #efe4b0;
+      --cream:    #f6f3e8;
+      --dark:     #2c2e1e;
+      --mid:      #4a4d36;
+      --accent:   #a8b460;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--cream);
+      color: var(--dark);
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1rem 2.5rem;
+      background: rgba(246,243,232,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(95,102,69,0.12);
+      transition: box-shadow .3s;
+    }
+    nav.scrolled { box-shadow: 0 2px 20px rgba(44,46,30,.08); }
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.15rem; font-weight: 600;
+      color: var(--olive); letter-spacing: .02em;
+      display: flex; align-items: center; gap: .5rem;
+    }
+    .nav-logo svg { width: 22px; height: 22px; }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      text-decoration: none; font-size: .85rem; font-weight: 500;
+      color: var(--mid); letter-spacing: .04em; text-transform: uppercase;
+      transition: color .2s;
+    }
+    .nav-links a:hover { color: var(--olive); }
+    .nav-cta {
+      background: var(--olive); color: var(--cream) !important;
+      padding: .45rem 1.2rem; border-radius: 50px;
+      transition: background .2s !important;
+    }
+    .nav-cta:hover { background: var(--sage) !important; color: var(--cream) !important; }
+
+    /* hamburger */
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 4px; }
+    .hamburger span { display: block; width: 24px; height: 2px; background: var(--olive); border-radius: 2px; transition: .3s; }
+    .mobile-menu { display: none; }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh;
+      display: grid; grid-template-columns: 1fr 1fr;
+      padding-top: 70px;
+      position: relative; overflow: hidden;
+    }
+    .hero-left {
+      display: flex; flex-direction: column; justify-content: center;
+      padding: 5rem 3rem 5rem 5rem;
+      background: var(--cream);
+      position: relative; z-index: 2;
+    }
+    .hero-eyebrow {
+      font-size: .75rem; font-weight: 500; letter-spacing: .16em;
+      text-transform: uppercase; color: var(--sage); margin-bottom: 1.2rem;
+    }
+    .hero-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.6rem, 4.5vw, 4rem);
+      font-weight: 700; line-height: 1.1;
+      color: var(--dark); margin-bottom: 1rem;
+    }
+    .hero-title em { font-style: italic; color: var(--olive); }
+    .hero-sub {
+      font-size: 1rem; line-height: 1.7; color: var(--mid);
+      max-width: 440px; margin-bottom: 2.5rem;
+    }
+    .hero-contacts { display: flex; flex-direction: column; gap: .6rem; margin-bottom: 2.5rem; }
+    .hero-contact-item {
+      display: flex; align-items: center; gap: .6rem;
+      font-size: .9rem; color: var(--mid);
+    }
+    .hero-contact-item a { color: var(--mid); text-decoration: none; }
+    .hero-contact-item a:hover { color: var(--olive); }
+    .hero-contact-icon {
+      width: 32px; height: 32px; border-radius: 50%;
+      background: var(--beige); display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: .5rem;
+      background: var(--olive); color: var(--cream);
+      padding: .9rem 2rem; border-radius: 50px;
+      font-size: .9rem; font-weight: 500; letter-spacing: .02em;
+      text-decoration: none; border: none; cursor: pointer;
+      transition: background .25s, transform .2s, box-shadow .25s;
+      width: fit-content;
+    }
+    .btn-primary:hover { background: var(--dark); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(44,46,30,.2); }
+    .hero-right {
+      position: relative; background: var(--olive);
+      display: flex; align-items: stretch;
+    }
+    .hero-img-wrap {
+      position: absolute; inset: 0;
+      overflow: hidden;
+    }
+    .hero-img-wrap img {
+      width: 100%; height: 100%; object-fit: cover;
+      object-position: center top;
+      opacity: .85;
+    }
+    .hero-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(135deg, rgba(95,102,69,.5) 0%, rgba(44,46,30,.2) 100%);
+    }
+    .hero-badge {
+      position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%);
+      background: var(--beige); color: var(--olive);
+      padding: .5rem 1.2rem; border-radius: 50px;
+      font-size: .78rem; font-weight: 500; letter-spacing: .08em;
+      white-space: nowrap; z-index: 2;
+      box-shadow: 0 4px 16px rgba(0,0,0,.12);
+    }
+
+    /* ── SECTIONS COMMON ── */
+    section { padding: 6rem 0; }
+    .container { max-width: 1140px; margin: 0 auto; padding: 0 2rem; }
+    .section-label {
+      font-size: .72rem; font-weight: 500; letter-spacing: .16em;
+      text-transform: uppercase; color: var(--sage); margin-bottom: 1rem;
+      display: flex; align-items: center; gap: .6rem;
+    }
+    .section-label::after { content: ''; flex: 1; height: 1px; background: var(--beige); max-width: 60px; }
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 3.5vw, 2.8rem);
+      font-weight: 700; color: var(--dark); line-height: 1.2;
+      margin-bottom: 1.5rem;
+    }
+
+    /* ── ÜBER MICH ── */
+    #ueber { background: var(--cream); }
+    .ueber-grid {
+      display: grid; grid-template-columns: 1fr 1.4fr; gap: 5rem;
+      align-items: center;
+    }
+    .ueber-img-wrap {
+      position: relative;
+    }
+    .ueber-img-frame {
+      border-radius: 4px 80px 4px 80px;
+      overflow: hidden; aspect-ratio: 3/4;
+      background: var(--beige);
+    }
+    .ueber-img-frame img { width: 100%; height: 100%; object-fit: cover; }
+    .ueber-img-deco {
+      position: absolute; bottom: -1.5rem; right: -1.5rem;
+      width: 120px; height: 120px; border-radius: 50%;
+      background: var(--beige);
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Playfair Display', serif; font-style: italic;
+      font-size: .85rem; color: var(--olive); text-align: center;
+      line-height: 1.4; padding: 1rem;
+      border: 3px solid var(--cream);
+    }
+    .ueber-text p { font-size: 1rem; line-height: 1.85; color: var(--mid); margin-bottom: 1.2rem; }
+    .ueber-pills { display: flex; flex-wrap: wrap; gap: .6rem; margin-top: 1.5rem; }
+    .pill {
+      background: var(--beige); color: var(--olive);
+      padding: .4rem 1rem; border-radius: 50px;
+      font-size: .8rem; font-weight: 500;
+    }
+
+    /* ── WARUM KLIMAGÄRTEN ── */
+    #warum {
+      background: var(--olive);
+      position: relative; overflow: hidden;
+    }
+    #warum::before {
+      content: '';
+      position: absolute; top: -80px; right: -80px;
+      width: 400px; height: 400px; border-radius: 50%;
+      background: rgba(255,255,255,.04);
+    }
+    #warum .section-label { color: var(--beige); }
+    #warum .section-label::after { background: rgba(239,228,176,.25); }
+    #warum .section-title { color: var(--cream); }
+    .warum-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start; margin-top: 3rem; }
+    .warum-intro { font-size: 1rem; line-height: 1.85; color: rgba(246,243,232,.8); margin-bottom: 2rem; }
+    .warum-benefits { display: flex; flex-direction: column; gap: 1rem; }
+    .benefit-item {
+      display: flex; align-items: flex-start; gap: 1rem;
+      background: rgba(255,255,255,.06); border-radius: 12px;
+      padding: 1rem 1.2rem; border: 1px solid rgba(255,255,255,.08);
+    }
+    .benefit-icon {
+      width: 36px; height: 36px; border-radius: 50%;
+      background: var(--beige); display: flex; align-items: center;
+      justify-content: center; flex-shrink: 0; font-size: 1rem;
+    }
+    .benefit-text { font-size: .9rem; line-height: 1.5; color: rgba(246,243,232,.9); }
+    .benefit-text strong { color: var(--beige); display: block; margin-bottom: .2rem; }
+    .warum-quote {
+      background: rgba(255,255,255,.07); border-radius: 20px;
+      padding: 2.5rem; border: 1px solid rgba(255,255,255,.1);
+      border-left: 4px solid var(--beige);
+    }
+    .warum-quote p { font-family: 'Playfair Display', serif; font-style: italic; font-size: 1.1rem; line-height: 1.8; color: var(--cream); margin-bottom: 1.5rem; }
+    .warum-sources { font-size: .75rem; color: rgba(246,243,232,.5); }
+
+    /* ── LEISTUNGEN ── */
+    #leistungen { background: var(--cream); }
+    .leistungen-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-top: 3rem; }
+    .leistung-card {
+      background: white; border-radius: 20px;
+      padding: 2rem; border: 1px solid rgba(95,102,69,.1);
+      transition: transform .25s, box-shadow .25s;
+    }
+    .leistung-card:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(44,46,30,.1); }
+    .leistung-card:nth-child(5) { grid-column: 1 / -1; background: var(--beige); }
+    .leistung-icon {
+      width: 48px; height: 48px; border-radius: 14px;
+      background: var(--beige); display: flex; align-items: center;
+      justify-content: center; font-size: 1.4rem; margin-bottom: 1.2rem;
+    }
+    .leistung-card:nth-child(5) .leistung-icon { background: white; }
+    .leistung-card h3 {
+      font-family: 'Playfair Display', serif; font-size: 1.15rem;
+      color: var(--dark); margin-bottom: .8rem;
+    }
+    .leistung-card ul { list-style: none; }
+    .leistung-card ul li {
+      font-size: .87rem; color: var(--mid); line-height: 1.6;
+      padding: .25rem 0; display: flex; align-items: baseline; gap: .5rem;
+    }
+    .leistung-card ul li::before { content: '↗'; color: var(--sage); font-size: .75rem; flex-shrink: 0; }
+
+    /* kreislauf card */
+    .kreislauf-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; align-items: center; }
+    .kreislauf-text p { font-size: .95rem; line-height: 1.8; color: var(--mid); margin-bottom: 1rem; }
+
+    /* ── REFERENZ ── */
+    #referenz { background: #f0ede1; }
+    .referenz-header { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; margin-bottom: 3rem; }
+    .referenz-text p { font-size: .95rem; line-height: 1.8; color: var(--mid); margin-bottom: 1rem; }
+    .referenz-stats { display: flex; flex-direction: column; gap: 1rem; }
+    .stat-box {
+      background: white; border-radius: 16px; padding: 1.5rem;
+      border: 1px solid rgba(95,102,69,.1);
+      display: flex; align-items: center; gap: 1.2rem;
+    }
+    .stat-num {
+      font-family: 'Playfair Display', serif; font-size: 2rem;
+      font-weight: 700; color: var(--olive); line-height: 1;
+    }
+    .stat-desc { font-size: .85rem; color: var(--mid); line-height: 1.4; }
+    .referenz-tags { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: 1.5rem; }
+    .ref-tag { background: var(--olive); color: var(--cream); padding: .35rem .9rem; border-radius: 50px; font-size: .78rem; }
+
+    /* ── PREISE ── */
+    #preise { background: var(--dark); }
+    #preise .section-label { color: var(--beige); }
+    #preise .section-label::after { background: rgba(239,228,176,.2); }
+    #preise .section-title { color: var(--cream); }
+    .preise-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 3rem; }
+    .preis-card {
+      border-radius: 24px; padding: 2.5rem;
+      border: 1px solid rgba(255,255,255,.08);
+      display: flex; flex-direction: column; gap: 1rem;
+    }
+    .preis-card.featured { background: var(--olive); border-color: transparent; }
+    .preis-card:not(.featured) { background: rgba(255,255,255,.05); }
+    .preis-label { font-size: .75rem; font-weight: 500; letter-spacing: .12em; text-transform: uppercase; color: var(--beige); }
+    .preis-amount {
+      font-family: 'Playfair Display', serif; font-size: 3.5rem;
+      font-weight: 700; color: var(--cream); line-height: 1;
+    }
+    .preis-amount span { font-size: 1.2rem; font-weight: 300; }
+    .preis-desc { font-size: .9rem; color: rgba(246,243,232,.7); line-height: 1.6; }
+    .preis-note {
+      font-size: .8rem; color: rgba(246,243,232,.5);
+      padding-top: 1rem; border-top: 1px solid rgba(255,255,255,.1);
+    }
+    .preis-note strong { color: var(--beige); }
+
+    /* ── KONTAKT ── */
+    #kontakt { background: var(--cream); }
+    .kontakt-wrap {
+      background: var(--beige); border-radius: 32px;
+      padding: 4rem; display: grid; grid-template-columns: 1fr 1fr; gap: 4rem;
+      align-items: center;
+    }
+    .kontakt-left .section-title { margin-bottom: 1rem; }
+    .kontakt-lead { font-size: 1rem; color: var(--mid); line-height: 1.7; margin-bottom: 2rem; }
+    .kontakt-items { display: flex; flex-direction: column; gap: 1rem; }
+    .kontakt-item {
+      display: flex; align-items: center; gap: 1rem;
+      font-size: .9rem; color: var(--mid);
+    }
+    .kontakt-item a { color: var(--mid); text-decoration: none; }
+    .kontakt-item a:hover { color: var(--olive); }
+    .kontakt-item-icon {
+      width: 40px; height: 40px; border-radius: 50%;
+      background: white; display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; color: var(--olive);
+    }
+    .kontakt-form { display: flex; flex-direction: column; gap: 1rem; }
+    .form-group { display: flex; flex-direction: column; gap: .4rem; }
+    .form-group label { font-size: .8rem; font-weight: 500; color: var(--olive); letter-spacing: .04em; }
+    .form-group input, .form-group textarea, .form-group select {
+      background: white; border: 1.5px solid rgba(95,102,69,.2);
+      border-radius: 10px; padding: .75rem 1rem;
+      font-family: 'DM Sans', sans-serif; font-size: .9rem; color: var(--dark);
+      outline: none; transition: border-color .2s;
+      width: 100%;
+    }
+    .form-group input:focus, .form-group textarea:focus, .form-group select:focus { border-color: var(--olive); }
+    .form-group textarea { resize: vertical; min-height: 100px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--dark); color: rgba(246,243,232,.5);
+      text-align: center; padding: 2rem;
+      font-size: .8rem;
+    }
+    footer a { color: rgba(246,243,232,.5); text-decoration: none; }
+    footer a:hover { color: var(--beige); }
+
+    /* ── REVEAL ANIM ── */
+    .reveal { opacity: 0; transform: translateY(30px); transition: opacity .7s ease, transform .7s ease; }
+    .reveal.visible { opacity: 1; transform: none; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+      .mobile-menu {
+        display: none; position: fixed; top: 70px; left: 0; right: 0;
+        background: var(--cream); z-index: 99; padding: 1.5rem 2rem;
+        flex-direction: column; gap: 1.2rem; border-bottom: 1px solid var(--beige);
+        box-shadow: 0 8px 24px rgba(44,46,30,.08);
+      }
+      .mobile-menu.open { display: flex; }
+      .mobile-menu a { font-size: .9rem; color: var(--mid); text-decoration: none; font-weight: 500; padding: .5rem 0; border-bottom: 1px solid var(--beige); }
+      .mobile-menu a:last-child { border: none; }
+
+      #hero { grid-template-columns: 1fr; min-height: auto; }
+      .hero-left { padding: 4rem 2rem 3rem; }
+      .hero-right { height: 50vw; min-height: 280px; order: -1; }
+      .ueber-grid { grid-template-columns: 1fr; gap: 3rem; }
+      .ueber-img-frame { aspect-ratio: 4/3; border-radius: 4px 40px 4px 40px; }
+      .warum-grid { grid-template-columns: 1fr; }
+      .leistungen-grid { grid-template-columns: 1fr 1fr; }
+      .leistung-card:nth-child(5) { grid-column: auto; }
+      .kreislauf-inner { grid-template-columns: 1fr; }
+      .referenz-header { grid-template-columns: 1fr; gap: 2rem; }
+      .preise-grid { grid-template-columns: 1fr; }
+      .kontakt-wrap { grid-template-columns: 1fr; padding: 2.5rem; gap: 2.5rem; }
+    }
+
+    @media (max-width: 600px) {
+      nav { padding: 1rem 1.5rem; }
+      .leistungen-grid { grid-template-columns: 1fr; }
+      .form-row { grid-template-columns: 1fr; }
+      .hero-left { padding: 3rem 1.5rem; }
+      section { padding: 4rem 0; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="navbar">
+  <div class="nav-logo">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+      <path d="M12 2C6.5 2 3 6 3 10c0 5 4 8 9 12 5-4 9-7 9-12 0-4-3.5-8-9-8z"/>
+      <path d="M12 6c0 3-3 5-3 8"/>
+    </svg>
+    Nick Junge
+  </div>
+  <ul class="nav-links">
+    <li><a href="#ueber">Über mich</a></li>
+    <li><a href="#leistungen">Leistungen</a></li>
+    <li><a href="#referenz">Referenz</a></li>
+    <li><a href="#preise">Preise</a></li>
+    <li><a href="#kontakt" class="nav-cta">Kontakt</a></li>
+  </ul>
+  <button class="hamburger" id="hamburger" aria-label="Menü öffnen">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#ueber" onclick="closeMobile()">Über mich</a>
+  <a href="#leistungen" onclick="closeMobile()">Leistungen</a>
+  <a href="#referenz" onclick="closeMobile()">Referenz</a>
+  <a href="#preise" onclick="closeMobile()">Preise</a>
+  <a href="#kontakt" onclick="closeMobile()">Kontakt anfragen</a>
+</div>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-left">
+    <p class="hero-eyebrow">Heidelberg & Umgebung</p>
+    <h1 class="hero-title">Gartenservice &<br><em>Klimagärten</em></h1>
+    <p class="hero-sub">Ökologische Gartengestaltung für eine lebenswerte Zukunft. Pflege, Gestaltung und ökologische Aufwertung von Privatgärten, Wohnanlagen und Grünflächen.</p>
+
+    <div class="hero-contacts">
+      <div class="hero-contact-item">
+        <div class="hero-contact-icon">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#5f6645" stroke-width="2">
+            <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 10.8a19.79 19.79 0 01-3.07-8.64A2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 7.91a16 16 0 006.72 6.72l1.28-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/>
+          </svg>
+        </div>
+        <a href="tel:015202869983">01520 2869983</a>
+      </div>
+      <div class="hero-contact-item">
+        <div class="hero-contact-icon">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#5f6645" stroke-width="2">
+            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+            <polyline points="22,6 12,13 2,6"/>
+          </svg>
+        </div>
+        <a href="mailto:gartenservice-junge@gmx.de">gartenservice-junge@gmx.de</a>
+      </div>
+    </div>
+
+    <a href="#kontakt" class="btn-primary">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/>
+      </svg>
+      Kostenlose Beratung anfragen
+    </a>
+  </div>
+
+  <div class="hero-right">
+    <div class="hero-img-wrap">
+      <img src="hero.jpeg" alt="Nick Junge">
+    </div>
+    <div class="hero-overlay"></div>
+    <div class="hero-badge">🌿 Ökologisch · Nachhaltig · Regional</div>
+  </div>
+</section>
+
+<!-- ÜBER MICH -->
+<section id="ueber">
+  <div class="container">
+    <div class="ueber-grid reveal">
+      <div class="ueber-img-wrap">
+        <div class="ueber-img-frame">
+          <img src="portrait.jpeg" alt="Nick Junge">
+        </div>
+        <div class="ueber-img-deco">Seit<br>2023<br>aktiv</div>
+      </div>
+      <div class="ueber-text">
+        <p class="section-label">Über mich</p>
+        <h2 class="section-title">Mein Ansatz</h2>
+        <p>Gärten sind weit mehr als dekorative Grünflächen. Sie können Lebensraum für Tiere und Pflanzen schaffen, das Mikroklima verbessern und Menschen selbst an heißen Sommertagen einen angenehmen Aufenthaltsort bieten.</p>
+        <p>Ich habe es mir zur Aufgabe gemacht, Gärten und Grünflächen so zu gestalten, dass sie einen ökologischen Mehrwert schaffen und gleichzeitig attraktiv und pflegeleicht bleiben.</p>
+        <p>Besonders in Städten können Gärten einen wichtigen Beitrag zur Anpassung an den Klimawandel leisten.</p>
+        <div class="ueber-pills">
+          <span class="pill">🌿 Klimaresilienz</span>
+          <span class="pill">🦋 Artenvielfalt</span>
+          <span class="pill">💧 Regenwassernutzung</span>
+          <span class="pill">🌳 Benjeshecken</span>
+          <span class="pill">🔄 Kreislaufwirtschaft</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WARUM KLIMAGÄRTEN -->
+<section id="warum">
+  <div class="container">
+    <p class="section-label reveal">Hintergrund</p>
+    <h2 class="section-title reveal">Warum Klimagärten?</h2>
+    <div class="warum-grid">
+      <div class="reveal">
+        <p class="warum-intro">Deutschland erlebt bereits heute häufiger Hitzewellen, längere Trockenperioden und Starkregenereignisse. Diese Entwicklungen werden in Zukunft weiter zunehmen – Gärten besitzen enormes Potenzial, entgegenzuwirken:</p>
+        <div class="warum-benefits">
+          <div class="benefit-item">
+            <div class="benefit-icon">🌡️</div>
+            <div class="benefit-text"><strong>Kühlung durch Verdunstung</strong>Bäume und Pflanzen kühlen ihre Umgebung natürlich ab.</div>
+          </div>
+          <div class="benefit-item">
+            <div class="benefit-icon">💧</div>
+            <div class="benefit-text"><strong>Speicherung von Regenwasser</strong>Natürliche Versickerung statt Kanalüberlastung.</div>
+          </div>
+          <div class="benefit-item">
+            <div class="benefit-icon">🦎</div>
+            <div class="benefit-text"><strong>Förderung der Artenvielfalt</strong>Lebensräume für Insekten, Vögel und Kleintiere.</div>
+          </div>
+          <div class="benefit-item">
+            <div class="benefit-icon">🏡</div>
+            <div class="benefit-text"><strong>Angenehmere Aufenthaltsorte</strong>Naturnähe verbessert Lebensqualität messbar.</div>
+          </div>
+        </div>
+      </div>
+      <div class="reveal">
+        <div class="warum-quote">
+          <p>„Mein Ziel ist es, Gärten zu entwickeln, die auch in Zukunft funktionieren und sowohl Mensch als auch Natur zugutekommen."</p>
+          <p style="font-family:'DM Sans',sans-serif;font-style:normal;font-size:.9rem;color:rgba(246,243,232,.8);">— Nick Junge, Gartenservice & Klimagärten</p>
+          <div class="warum-sources" style="margin-top:1.5rem;">Quellen: Umweltbundesamt · IPCC (Intergovernmental Panel on Climate Change)</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LEISTUNGEN -->
+<section id="leistungen">
+  <div class="container">
+    <p class="section-label reveal">Was ich anbiete</p>
+    <h2 class="section-title reveal">Leistungen</h2>
+    <div class="leistungen-grid">
+
+      <div class="leistung-card reveal">
+        <div class="leistung-icon">✂️</div>
+        <h3>Gartenpflege</h3>
+        <ul>
+          <li>Hecken- und Gehölzschnitt</li>
+          <li>Rosenschnitt</li>
+          <li>Obstbaumschnitt</li>
+          <li>Staudenpflege</li>
+          <li>Unkrautbekämpfung</li>
+          <li>Pflege von Grünanlagen</li>
+        </ul>
+      </div>
+
+      <div class="leistung-card reveal">
+        <div class="leistung-icon">🌿</div>
+        <h3>Klimagärten</h3>
+        <ul>
+          <li>Planung klimaresilienter Gärten</li>
+          <li>Trockenheitsverträgliche Bepflanzung</li>
+          <li>Regenwassernutzung</li>
+          <li>Schaffung von Schattenbereichen</li>
+          <li>Entsiegelung von Flächen</li>
+          <li>Verbesserung des Mikroklimas</li>
+        </ul>
+      </div>
+
+      <div class="leistung-card reveal">
+        <div class="leistung-icon">🦋</div>
+        <h3>Ökologische Aufwertung</h3>
+        <ul>
+          <li>Benjeshecken</li>
+          <li>Wildblumenflächen</li>
+          <li>Totholzhabitate</li>
+          <li>Förderung von Bestäubern</li>
+          <li>Naturnahe Strukturen</li>
+        </ul>
+      </div>
+
+      <div class="leistung-card reveal">
+        <div class="leistung-icon">🚫</div>
+        <h3>Invasive Arten</h3>
+        <ul>
+          <li>Bekämpfung invasiver Pflanzen</li>
+          <li>Chinesischer Staudenknöterich</li>
+          <li>Drüsiges Springkraut</li>
+          <li>Beratung zu nachhaltigen Maßnahmen</li>
+        </ul>
+      </div>
+
+      <div class="leistung-card reveal">
+        <div class="kreislauf-inner">
+          <div>
+            <div class="leistung-icon">🔄</div>
+            <h3>Kreislaufwirtschaft im Garten</h3>
+            <p style="font-size:.87rem;color:var(--mid);line-height:1.7;margin-top:.6rem;">Anfallendes Schnittgut muss nicht entsorgt werden. Viele Materialien lassen sich direkt vor Ort sinnvoll weiterverwenden – so entstehen ökologische Mehrwerte und gleichzeitig sinken Entsorgungskosten.</p>
+          </div>
+          <ul>
+            <li>Benjeshecken aus Schnittgut</li>
+            <li>Mulchmaterial vor Ort</li>
+            <li>Totholzstrukturen anlegen</li>
+            <li>Humusaufbau fördern</li>
+            <li>Lebensräume für Tiere schaffen</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- REFERENZ -->
+<section id="referenz">
+  <div class="container">
+    <p class="section-label reveal">Praxisbeispiel</p>
+    <h2 class="section-title reveal">Referenzprojekt</h2>
+    <div class="referenz-header reveal">
+      <div class="referenz-text">
+        <p><strong style="color:var(--dark);">Wohnquartier Raunheim bei Frankfurt</strong></p>
+        <p>Im Rahmen eines ökologischen Aufwertungsprojekts entstand eine rund 120 Meter lange Benjeshecke mit einem Volumen von etwa 140 Kubikmetern.</p>
+        <p>Ziel war es, Natur und Menschen wieder näher zusammenzubringen und gleichzeitig neue Lebensräume für zahlreiche Tierarten zu schaffen.</p>
+        <div class="referenz-tags">
+          <span class="ref-tag">Rückzugsort für Vögel</span>
+          <span class="ref-tag">Lebensraum für Insekten</span>
+          <span class="ref-tag">Strukturgeber</span>
+          <span class="ref-tag">Kreislaufwirtschaft</span>
+        </div>
+      </div>
+      <div class="referenz-stats">
+        <div class="stat-box">
+          <div class="stat-num">120 m</div>
+          <div class="stat-desc">Länge der angelegten<br>Benjeshecke</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num">140 m³</div>
+          <div class="stat-desc">Volumen aus<br>Schnittgut vor Ort</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bildergalerie Platzhalter -->
+    <div class="reveal" style="display:grid;grid-template-columns:2fr 1fr 1fr;gap:1rem;border-radius:20px;overflow:hidden;background:var(--beige);">
+      <div style="aspect-ratio:16/9;background:linear-gradient(135deg,#7a8450,#5f6645);display:flex;align-items:center;justify-content:center;color:rgba(246,243,232,.4);font-size:.8rem;font-style:italic;font-family:'Playfair Display',serif;">
+        Hauptbild Benjeshecke<br><span style="font-family:'DM Sans';font-size:.7rem;font-style:normal;">benjeshecke-1.jpg</span>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:1rem;">
+        <div style="flex:1;background:linear-gradient(135deg,#5f6645,#4a4d36);display:flex;align-items:center;justify-content:center;color:rgba(246,243,232,.35);font-size:.7rem;font-family:'DM Sans';">benjeshecke-2.jpg</div>
+        <div style="flex:1;background:linear-gradient(135deg,#4a4d36,#2c2e1e);display:flex;align-items:center;justify-content:center;color:rgba(246,243,232,.35);font-size:.7rem;font-family:'DM Sans';">benjeshecke-3.jpg</div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:1rem;">
+        <div style="flex:1;background:linear-gradient(135deg,#7a8450,#4a4d36);display:flex;align-items:center;justify-content:center;color:rgba(246,243,232,.35);font-size:.7rem;font-family:'DM Sans';">benjeshecke-4.jpg</div>
+        <div style="flex:1;background:linear-gradient(135deg,#5f6645,#7a8450);display:flex;align-items:center;justify-content:center;color:rgba(246,243,232,.35);font-size:.7rem;font-family:'DM Sans';">benjeshecke-5.jpg</div>
+      </div>
+    </div>
+    <p style="font-size:.75rem;color:#999;margin-top:.75rem;text-align:center;">Bilder einfach als benjeshecke-1.jpg bis -5.jpg neben der index.html speichern und die Platzhalter-divs durch &lt;img&gt;-Tags ersetzen.</p>
+  </div>
+</section>
+
+<!-- PREISE -->
+<section id="preise">
+  <div class="container">
+    <p class="section-label reveal">Transparenz</p>
+    <h2 class="section-title reveal">Faire Preise</h2>
+    <div class="preise-grid reveal">
+      <div class="preis-card featured">
+        <div class="preis-label">Stundensatz</div>
+        <div class="preis-amount">45 <span>€ / Std.</span></div>
+        <div class="preis-desc">Für laufende Gartenpflege, kleinere Projekte und Einzelleistungen. Transparente Abrechnung nach tatsächlich geleisteter Zeit.</div>
+        <div class="preis-note"><strong>Vorteil:</strong> Dank Kleinunternehmerregelung fällt keine 19 % Umsatzsteuer an – Sie zahlen weniger.</div>
+      </div>
+      <div class="preis-card">
+        <div class="preis-label">Festpreis</div>
+        <div class="preis-amount" style="font-size:2rem;margin-top:.5rem;">Nach Besichtigung</div>
+        <div class="preis-desc">Für größere Projekte, Umgestaltungen und Klimagarten-Planungen erstelle ich nach einem kostenlosen Vor-Ort-Termin ein verbindliches Angebot.</div>
+        <div class="preis-note">Kostenlose Erstberatung · Kein Risiko · Unverbindlich</div>
+        <a href="#kontakt" class="btn-primary" style="margin-top:auto;">Termin anfragen</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- KONTAKT -->
+<section id="kontakt">
+  <div class="container">
+    <div class="kontakt-wrap reveal">
+      <div class="kontakt-left">
+        <p class="section-label">Kontakt</p>
+        <h2 class="section-title">Interesse an einem Projekt?</h2>
+        <p class="kontakt-lead">Ob Gartenpflege, Klimagarten oder ökologische Aufwertung – ich freue mich auf Ihre Anfrage.</p>
+        <div class="kontakt-items">
+          <div class="kontakt-item">
+            <div class="kontakt-item-icon">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 10.8a19.79 19.79 0 01-3.07-8.64A2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 7.91a16 16 0 006.72 6.72l1.28-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/>
+              </svg>
+            </div>
+            <a href="tel:015202869983">01520 2869983</a>
+          </div>
+          <div class="kontakt-item">
+            <div class="kontakt-item-icon">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                <polyline points="22,6 12,13 2,6"/>
+              </svg>
+            </div>
+            <a href="mailto:gartenservice-junge@gmx.de">gartenservice-junge@gmx.de</a>
+          </div>
+          <div class="kontakt-item">
+            <div class="kontakt-item-icon">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/>
+                <circle cx="12" cy="10" r="3"/>
+              </svg>
+            </div>
+            <span>Heidelberg und Umgebung</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="kontakt-form">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" id="name" placeholder="Ihr Name">
+          </div>
+          <div class="form-group">
+            <label for="phone">Telefon</label>
+            <input type="tel" id="phone" placeholder="Ihre Nummer">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="email">E-Mail</label>
+          <input type="email" id="email" placeholder="ihre@email.de">
+        </div>
+        <div class="form-group">
+          <label for="leistung">Gewünschte Leistung</label>
+          <select id="leistung">
+            <option value="">Bitte wählen …</option>
+            <option>Gartenpflege</option>
+            <option>Klimagarten-Planung</option>
+            <option>Ökologische Aufwertung</option>
+            <option>Benjeshecke</option>
+            <option>Invasive Arten</option>
+            <option>Sonstiges / Beratung</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="nachricht">Nachricht</label>
+          <textarea id="nachricht" placeholder="Kurze Beschreibung Ihres Projekts oder Anliegens …"></textarea>
+        </div>
+        <a href="#" class="btn-primary" id="sendBtn" onclick="handleSend(event)">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/>
+          </svg>
+          Anfrage senden
+        </a>
+        <p style="font-size:.75rem;color:#888;margin-top:.25rem;">Oder rufen Sie direkt an: <a href="tel:015202869983" style="color:var(--olive);">01520 2869983</a></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2025 Nick Junge – Gartenservice & Klimagärten · Heidelberg &nbsp;|&nbsp; <a href="mailto:gartenservice-junge@gmx.de">gartenservice-junge@gmx.de</a> &nbsp;|&nbsp; <a href="tel:015202869983">01520 2869983</a></p>
+  <p style="margin-top:.5rem;font-size:.72rem;">Angaben gemäß § 5 TMG · Kleinunternehmer gem. § 19 UStG · Keine Umsatzsteuerausweisung</p>
+</footer>
+
+<script>
+  // Nav shadow on scroll
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 20);
+  });
+
+  // Mobile menu
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobileMenu');
+  hamburger.addEventListener('click', () => {
+    mobileMenu.classList.toggle('open');
+  });
+  function closeMobile() { mobileMenu.classList.remove('open'); }
+
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 80);
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  reveals.forEach(el => observer.observe(el));
+
+  // Contact form -> mailto
+  function handleSend(e) {
+    e.preventDefault();
+    const name    = document.getElementById('name').value;
+    const phone   = document.getElementById('phone').value;
+    const email   = document.getElementById('email').value;
+    const leistung= document.getElementById('leistung').value;
+    const msg     = document.getElementById('nachricht').value;
+    const body = encodeURIComponent(
+      `Name: ${name}\nTelefon: ${phone}\nE-Mail: ${email}\nLeistung: ${leistung}\n\nNachricht:\n${msg}`
+    );
+    window.location.href = `mailto:gartenservice-junge@gmx.de?subject=Anfrage%20Gartenservice%20Junge&body=${body}`;
+  }
+</script>
+</body>
+</html>
